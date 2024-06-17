@@ -85,11 +85,11 @@ function createCartItem(outerDivCart, product) {
     let counter = document.createElement('div');
     counter.style.width = '27%';
     counter.style.height = '20%';
-    counter.style.border = '2px solid rgb(238, 122, 6)';
+    counter.style.border = '1px solid rgb(238, 122, 6)';
     counter.style.borderRadius = '20px';
     counter.style.position = 'absolute';
     counter.style.top = '20%';
-    counter.style.left = '70%';
+    counter.style.left = '67.5%';
 
     let minusCount = document.createElement('i');
     minusCount.classList.add('fa-solid', 'fa-minus', 'minusCountClass');
@@ -103,10 +103,11 @@ function createCartItem(outerDivCart, product) {
     numberCount.value = product.quantity;
     numberCount.disabled = true;
     numberCount.style.width = '25%';
+    numberCount.style.paddingLeft = '3%';
     numberCount.style.border = 'none';
     numberCount.style.color = 'rgb(238, 122, 6)';
     numberCount.style.fontSize = '1.2rem';
-    numberCount.style.margin = '2% 0 0 12%';
+    numberCount.style.margin = '2% 0 0 15%';
 
     let plusCount = document.createElement('i');
     plusCount.className = 'plusCountClass';
@@ -126,6 +127,7 @@ function createCartItem(outerDivCart, product) {
     createCustomise.style.left = '5%';
 
     let createPrice = document.createElement('input');
+    createPrice.style.display = 'block';
     createPrice.style.fontFamily = 'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif';
     createPrice.disabled = true;
     createPrice.style.width = '23%';
@@ -136,8 +138,8 @@ function createCartItem(outerDivCart, product) {
     createPrice.style.fontSize = '1.05rem';
     createPrice.style.position = 'absolute';
     createPrice.style.top = '70%';
-    createPrice.style.left = '80%';
-    createPrice.value = product.price * product.quantity;
+    createPrice.style.left = '74%';
+    createPrice.value = `₹${(product.price * product.quantity).toFixed(2)}/-`;
 
     counter.appendChild(minusCount);
     counter.appendChild(numberCount);
@@ -153,7 +155,7 @@ function createCartItem(outerDivCart, product) {
         count += 1;
         numberCount.value = count;
         product.quantity = count;
-        createPrice.value = product.price * count;
+        createPrice.value = `₹${(product.price * count).toFixed(2)}/-`;
         updateTotalPrice();
     });
 
@@ -163,7 +165,7 @@ function createCartItem(outerDivCart, product) {
             count -= 1;
             numberCount.value = count;
             product.quantity = count;
-            createPrice.value = product.price * count;
+            createPrice.value = `₹${(product.price * count).toFixed(2)}/-`;
         } else {
             outerDivCart.removeChild(createDiv);
             cart.splice(cart.indexOf(product), 1);
@@ -190,5 +192,5 @@ function updateCartDisplay() {
 
 function updateTotalPrice() {
     let totalPrice = cart.reduce((total, product) => total + (product.price * product.quantity), 0);
-    totalPriceDisplay.innerHTML = `<i class="fa-solid fa-indian-rupee-sign"></i> ${totalPrice}/-`;
+    totalPriceDisplay.innerHTML = `<i class="fa-solid fa-indian-rupee-sign"></i> ${totalPrice.toFixed(2)}/-`;
 }
